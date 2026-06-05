@@ -1,1 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacto de la IA en los Hábitos de Estudio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a365d;    /* Azul Académico Institucional */
+            --secondary-color: #2b6cb0;  /* Azul de Enfoque Tecnológico */
+            --accent-color: #319795;     /* Tono Inteligencia Artificial */
+            --bg-light: #f7fafc;         /* Fondo Gris Atenuado */
+            --text-dark: #2d3748;        /* Texto Principal Principal */
+            --text-muted: #718096;      /* Texto de Subtítulos */
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: --text-dark;
+            background-color: var(--bg-light);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Encabezado / Hero Section */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header p.institution {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #90cdf4;
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            color: var(--white);
+            font-size: 2.3rem;
+            line-height: 1.3;
+            margin-bottom: 25px;
+        }
+
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .author-card p {
+            font-size: 0.9rem;
+        }
+        .author-card .name {
+            font-weight: 600;
+            color: #ebd382;
+        }
+
+        /* Navegación Fija */
+        nav {
+            background-color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        nav ul {
+            max-width: 1200px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            background-color: rgba(66, 153, 225, 0.05);
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            header h1 { font-size: 1.8rem; }
+        }
+
+        main {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+
+        section h2 {
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #4a5568;
+        }
+
+        /* Sección de Énfasis: Resultados Críticos */
+        .results-section {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .item-analysis {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border: 1px solid #edf2f7;
+        }
+
+        .item-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 10px;
+        }
+
+        .item-badge {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .chart-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .chart-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-container {
+            position: relative;
+            margin: auto;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .table-data {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+
+        .table-data th, .table-data td {
+            padding: 8px 12px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-data th {
+            background-color: #edf2f7;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .interpretation-box {
+            background-color: rgba(49, 151, 149, 0.04);
+            border-top: 3px solid var(--accent-color);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 0 6px 6px;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Barra Lateral Metodológica */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sticky-aside {
+            position: sticky;
+            top: 100px;
+        }
+
+        .widget {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid #edf2f7;
+        }
+
+        .widget h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .meta-list {
+            list-style: none;
+        }
+
+        .meta-list li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .meta-list span.label {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .meta-list span.value {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <p class="institution">Complejo Educativo Colegio Fray Luis Amigó</p>
+            <h1>Impacto de las Herramientas Apoyadas en la Inteligencia Artificial en Relación a los Hábitos de Estudio</h1>
+            <p style="color: #e2e8f0; font-style: italic; margin-bottom: 20px;">Estudio descriptivo y cuantitativo realizado en San Felipe, Estado Yaracuy (Mayo, 2026)</p>
+            
+            <div class="authors-grid">
+                <div class="author-card"><p class="name">José Salazar</p><p class="id">V.-33.100.537</p></div>
+                <div class="author-card"><p class="name">Robert Pérez</p><p class="id">V.-33.261.783</p></div>
+                <div class="author-card"><p class="name">Samuel Escalona</p><p class="id">V.-33.220.001</p></div>
+                <div class="author-card"><p class="name">Sebastián Ibarra</p><p class="id">V.-33.260.950</p></div>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #cbd5e0;"><strong>Tutor:</strong> Prof. Daniel Marchena</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#resumen">Resumen</a></li>
+            <li><a href="#problema">El Problema</a></li>
+            <li><a href="#resultados" class="active">Capítulo IV: Análisis de Resultados</a></li>
+            <li><a href="#conclusiones">Capítulo V: Conclusiones</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        
+        <main>
+            
+            <section id="resumen">
+                <h2>Resumen Ejecutivo</h2>
+                [span_5](start_span)<p>Esta investigación tiene por objetivo general analizar el impacto de las herramientas apoyadas en la inteligencia artificial en relación a los hábitos de estudio de los estudiantes del 5to año A y B de la Unidad Educativa Colegio Fray Luis Amigó en el estado Yaracuy[span_5](end_span). [span_6](start_span)Este estudio surge por la gran importancia que cobra la inteligencia artificial en el campo educativo actual para reconocer su incidencia directa en la adquisición y transformación de rutinas escolares[span_6](end_span).</p>
+                [span_7](start_span)<p>Metodológicamente, se inscribió dentro del paradigma positivista de naturaleza cuantitativa, de tipo descriptivo en la modalidad de campo[span_7](end_span). [span_8](start_span)Se seleccionó una muestra representativa del 30% de la población (19 estudiantes), a quienes se les aplicó un cuestionario estructurado de veinticuatro (24) ítems bajo la escala de Likert[span_8](end_span). [span_9](start_span)Las pruebas estadísticas arrojaron un coeficiente Alpha de Cronbach de 0.95, demostrando una confiabilidad excepcionalmente alta para el instrumento de medición[span_9](end_span).</p>
+            </section>
+
+            <section id="problema">
+                <h2>Capítulo I: El Problema</h2>
+                [span_10](start_span)[span_11](start_span)<p><strong>Planteamiento del Problema:</strong> En la actualidad, las herramientas apoyadas en la inteligencia artificial (IA) como ChatGPT, Gemini, traductores automáticos y plataformas de tutoría virtual han irrumpido en las dinámicas de los estudiantes de educación secundaria[span_10](end_span)[span_11](end_span). [span_12](start_span)[span_13](start_span)Si bien estas aplicaciones optimizan los procesos de personalización educativa y automatización de tareas, también generan síntomas preocupantes en los jóvenes[span_12](end_span)[span_13](end_span).</p>
+                [span_14](start_span)<p>Se ha observado de forma preliminar una dependencia creciente hacia las plataformas digitales, una alarmante disminución en el uso de técnicas tradicionales de estudio (como resúmenes autónomos, esquemas o mapas conceptuales manuales) y una marcada preferencia por soluciones rápidas generadas por algoritmos en lugar de procesos reflexivos profundos[span_14](end_span). [span_15](start_span)Este estudio busca discernir si la IA está contribuyendo al desarrollo de competencias sólidas o si genera prácticas fragmentadas y dependientes[span_15](end_span).</p>
+            </section>
+
+            <section id="resultados" class="results-section">
+                <h2>Capítulo IV: Análisis e Interpretación de Resultados</h2>
+                [span_16](start_span)[span_17](start_span)<p style="margin-bottom: 30px;">A continuación, se exponen y discuten de manera exhaustiva los resultados más críticos obtenidos tras la aplicación del instrumento analítico, divididos por sus dimensiones operacionales principales[span_16](end_span)[span_17](end_span).</p>
+
+                <div class="item-analysis">
+                    <div class="item-header">
+                        <span class="item-badge">Dimensión: Acceso y Uso de IA</span>
+                        [span_18](start_span)<h3>Ítem 1: ¿Utilizas como apoyo herramientas de inteligencia artificial para tus actividades de estudio al menos una vez por semana?[span_18](end_span)</h3>
+                    </div>
+                    <div class="chart-layout">
+                        <div class="chart-container">
+                            <canvas id="chartItem1"></canvas>
+                        </div>
+                        <div>
+                            <table class="table-data">
+                                <thead>
+                                    <tr><th>Alternativa</th><th>Frecuencia (f)</th><th>Porcentaje (%)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Siempre</td><td>13</td><td>68.4%</td></tr>
+                                    <tr><td>Casi siempre</td><td>4</td><td>21.1%</td></tr>
+                                    <tr><td>A veces</td><td>2</td><td>10.5%</td></tr>
+                                    <tr><td>Casi nunca</td><td>0</td><td>0.0%</td></tr>
+                                    <tr><td>Nunca</td><td>0</td><td>0.0%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="interpretation-box">
+                        [span_19](start_span)<strong>Interpretación:</strong> El 68,4% de los alumnos afirma que siempre emplea la IA de forma semanal[span_19](end_span). [span_20](start_span)Como infiere González (2023), la IA se ha transformado en un recurso cotidiano e integrado plenamente en las tareas escolares para investigar temas académicos[span_20](end_span).
+                    </div>
+                </div>
+
+                <div class="item-analysis">
+                    <div class="item-header">
+                        <span class="item-badge">Dimensión: Acceso y Uso de IA</span>
+                        [span_21](start_span)[span_22](start_span)<h3>Ítem 2: ¿Usas asistentes virtuales (como ChatGPT o Gemini) para resolver dudas específicas sobre los temas académicos?[span_21](end_span)[span_22](end_span)</h3>
+                    </div>
+                    <div class="chart-layout">
+                        <div class="chart-container">
+                            <canvas id="chartItem2"></canvas>
+                        </div>
+                        <div>
+                            <table class="table-data">
+                                <thead>
+                                    <tr><th>Alternativa</th><th>Frecuencia (f)</th><th>Porcentaje (%)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Siempre</td><td>12</td><td>63.2%</td></tr>
+                                    <tr><td>Casi siempre</td><td>5</td><td>26.3%</td></tr>
+                                    <tr><td>A veces</td><td>2</td><td>10.5%</td></tr>
+                                    <tr><td>Casi nunca</td><td>0</td><td>0.0%</td></tr>
+                                    <tr><td>Nunca</td><td>0</td><td>0.0%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="interpretation-box">
+                        [span_23](start_span)[span_24](start_span)<strong>Interpretación:</strong> Con un 63,2% en la opción "Siempre", se evidencia que los estudiantes han sustituido la búsqueda tradicional por la consulta inmediata a modelos conversacionales grandes para estructurar y despejar dudas investigativas[span_23](end_span)[span_24](end_span).
+                    </div>
+                </div>
+
+                <div class="item-analysis">
+                    <div class="item-header">
+                        <span class="item-badge">Dimensión: Influencia en la Organización</span>
+                        [span_25](start_span)<h3>Ítem 4: ¿Organizas tu horario de estudio personal apoyándote en herramientas de inteligencia artificial?[span_25](end_span)</h3>
+                    </div>
+                    <div class="chart-layout">
+                        <div class="chart-container">
+                            <canvas id="chartItem4"></canvas>
+                        </div>
+                        <div>
+                            <table class="table-data">
+                                <thead>
+                                    <tr><th>Alternativa</th><th>Frecuencia (f)</th><th>Porcentaje (%)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Siempre</td><td>3</td><td>15.8%</td></tr>
+                                    <tr><td>Casi siempre</td><td>1</td><td>5.3%</td></tr>
+                                    <tr><td>A veces</td><td>4</td><td>21.1%</td></tr>
+                                    <tr><td>Casi nunca</td><td>3</td><td>15.8%</td></tr>
+                                    <tr><td>Nunca</td><td>8</td><td>42.1%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="interpretation-box">
+                        [span_26](start_span)<strong>Interpretación Crítica:</strong> A diferencia de las consultas rápidas, el 42,1% indicó que <strong>nunca</strong> emplea la IA para organizar su tiempo de estudio[span_26](end_span). [span_27](start_span)Esto evidencia que los estudiantes no aprovechan el potencial de la IA para la gestión y planificación del tiempo, manteniendo esquemas organizativos empíricos y poco estructurados[span_27](end_span).
+                    </div>
+                </div>
+
+                <div class="item-analysis">
+                    <div class="item-header">
+                        <span class="item-badge">Dimensión: Producción Académica</span>
+                        [span_28](start_span)<h3>Ítem 6: ¿Elaboras tus manuales, resúmenes o esquemas de estudio utilizando plataformas de inteligencia artificial?[span_28](end_span)</h3>
+                    </div>
+                    <div class="chart-layout">
+                        <div class="chart-container">
+                            <canvas id="chartItem6"></canvas>
+                        </div>
+                        <div>
+                            <table class="table-data">
+                                <thead>
+                                    <tr><th>Alternativa</th><th>Frecuencia (f)</th><th>Porcentaje (%)</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Siempre</td><td>6</td><td>31.6%</td></tr>
+                                    <tr><td>Casi siempre</td><td>7</td><td>36.8%</td></tr>
+                                    <tr><td>A veces</td><td>3</td><td>15.8%</td></tr>
+                                    <tr><td>Casi nunca</td><td>1</td><td>5.3%</td></tr>
+                                    <tr><td>Nunca</td><td>2</td><td>10.5%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="interpretation-box">
+                        [span_29](start_span)[span_30](start_span)<strong>Interpretación:</strong> Sumando "Siempre" y "Casi Siempre" (68,4%), se observa una fuerte inclinación a delegar los procesos de síntesis de textos y preparación de repasos a las plataformas de IA, lo que simplifica y acelera la interpretación y asimilación de contenidos complejos[span_29](end_span)[span_30](end_span).
+                    </div>
+                </div>
+            </section>
+
+            <section id="conclusiones">
+                <h2>Capítulo V: Conclusiones y Recomendaciones</h2>
+                [span_31](start_span)[span_32](start_span)[span_33](start_span)<p><strong>Conclusiones Generales:</strong> Los datos cuantitativos permiten concluir que el impacto de la Inteligencia Artificial en los hábitos de estudio del Colegio Fray Luis Amigó es profundamente **bivalente**[span_31](end_span)[span_32](end_span)[span_33](end_span):</p>
+                [span_34](start_span)[span_35](start_span)<p style="margin-left: 20px; border-left: 3px solid var(--secondary-color); padding-left: 15px; font-style: italic;">"Los alumnos manifiestan un alto nivel de acceso y destreza en el uso operativo de asistentes de IA para resolver tareas complejas, traducir textos y resumir de forma inmediata. Sin embargo, existe una debilidad severa en la iniciativa propia y la autorregulación consciente[span_34](end_span)[span_35](end_span). [span_36](start_span)[span_37](start_span)Las herramientas inteligentes son utilizadas con fines reactivos y utilitarios para resolver asignaciones puntuales, pero no están integradas de manera estratégica en la planificación a largo plazo, el establecimiento de horarios o en la autoevaluación guiada de saberes[span_36](end_span)[span_37](end_span)."</p>
+                
+                <p style="margin-top: 30px;"><strong>Recomendaciones Clave:</strong></p>
+                [span_38](start_span)[span_39](start_span)<p>1. <strong>A los Estudiantes:</strong> Adoptar un rol activo bajo la teoría de autorregulación de Zimmerman (2022)[span_38](end_span)[span_39](end_span). [span_40](start_span)[span_41](start_span)Es imperativo que utilicen aplicaciones basadas en IA no solo como un repositorio de respuestas veloces, sino como un elemento de planificación de metas académicas semanales[span_40](end_span)[span_41](end_span).</p>
+                <p>2. [span_42](start_span)<strong>A la Institución y Docentes:</strong> Romper la brecha y la prohibición estéril[span_42](end_span). [span_43](start_span)[span_44](start_span)Se deben establecer guías pedagógicas claras e intencionales dentro del aula de clases que enseñen pensamiento crítico, con el fin de guiar y consolidar el uso ético y consciente de la inteligencia artificial de manera autónoma[span_43](end_span)[span_44](end_span).</p>
+            </section>
+        </main>
+
+        <aside>
+            <div class="sticky-aside">
+                <div class="widget">
+                    <h3>Ficha Metodológica</h3>
+                    <ul class="meta-list">
+                        <li><span class="label">Paradigma:</span> <span class="value">Positivista</span></li>
+                        <li><span class="label">Naturaleza:</span> <span class="value">Cuantitativa</span></li>
+                        <li><span class="label">Población Total:</span> <span class="value">64 alumnos</span></li>
+                        <li><span class="label">Muestra Aplicada:</span> <span class="value">19 alumnos (30%)</span></li>
+                        <li><span class="label">Ítems Evaluados:</span> <span class="value">24 preguntas</span></li>
+                        <li><span class="label">Fiabilidad (Alpha):</span> <span class="value" style="color: #38a169;">0.95 (Muy Alta)</span></li>
+                    </ul>
+                </div>
+
+                <div class="widget" style="margin-top: 20px; background-color: #ebf8ff; border: 1px solid #bee3f8;">
+                    <h3>Autores del Proyecto</h3>
+                    [span_45](start_span)<p style="font-size: 0.85rem; margin-bottom: 0; text-align: left;">Estudiantes de Educación Media General de 5to Año, Secciones A y B[span_45](end_span).</p>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Complejo Educativo Colegio Fray Luis Amigó. Todos los derechos reservados.</p>
+        <p style="font-size: 0.75rem; color: #a0aec0; margin-top: 5px;">Diseñado dinámicamente con Chart.js para la defensa del proyecto de grado.</p>
+    </footer>
+
+    <script>
+        const chartOptions = {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
+            }
+        };
+        const colors = ['#1a365d', '#2b6cb0', '#4299e1', '#cbd5e0', '#e2e8f0'];
+
+        // Gráfico Ítem 1
+        new Chart(document.getElementById('chartItem1'), {
+            type: 'pie',
+            data: {
+                labels: ['Siempre', 'Casi siempre', 'A veces', 'Casi nunca', 'Nunca'],
+                datasets: [{ data: [68.4, 21.1, 10.5, 0, 0], backgroundColor: colors }]
+            },
+            options: chartOptions
+        });
+
+        // Gráfico Ítem 2
+        new Chart(document.getElementById('chartItem2'), {
+            type: 'pie',
+            data: {
+                labels: ['Siempre', 'Casi siempre', 'A veces', 'Casi nunca', 'Nunca'],
+                datasets: [{ data: [63.2, 26.3, 10.5, 0, 0], backgroundColor: colors }]
+            },
+            options: chartOptions
+        });
+
+        // Gráfico Ítem 4
+        new Chart(document.getElementById('chartItem4'), {
+            type: 'pie',
+            data: {
+                labels: ['Siempre', 'Casi siempre', 'A veces', 'Casi nunca', 'Nunca'],
+                datasets: [{ data: [15.8, 5.3, 21.1, 15.8, 42.1], backgroundColor: colors }]
+            },
+            options: chartOptions
+        });
+
+        // Gráfico Ítem 6
+        new Chart(document.getElementById('chartItem6'), {
+            type: 'pie',
+            data: {
+                labels: ['Siempre', 'Casi siempre', 'A veces', 'Casi nunca', 'Nunca'],
+                datasets: [{ data: [31.6, 36.8, 15.8, 5.3, 10.5], backgroundColor: colors }]
+            },
+            options: chartOptions
+        });
+    </script>
+</body>
+</html>
 
